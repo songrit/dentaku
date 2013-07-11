@@ -4,7 +4,7 @@ require 'dentaku/tokenizer'
 
 module Dentaku
   class Calculator
-    attr_reader :result
+    attr_reader :result,  :tokens
 
     def initialize
       clear
@@ -18,6 +18,10 @@ module Dentaku
         @evaluator ||= Evaluator.new
         @result = @evaluator.evaluate(replace_identifiers_with_values)
       end
+    end
+    def parse(expression)
+      @tokenizer ||= Tokenizer.new
+      @tokens = @tokenizer.tokenize(expression)
     end
 
     def memory(key=nil)
